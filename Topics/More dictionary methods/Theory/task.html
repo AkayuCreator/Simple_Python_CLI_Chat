@@ -1,0 +1,90 @@
+<div class="step-text">
+<p>In Python programming, dictionaries are a useful data structure for storing <a class="theory-lookup not-relevant" href="/learn/step/36298" target="_blank" title="In Python, a key-value pair is a data structure that maps unique keys to associated values in a dictionary. | Each key is used to look up its corresponding value within the dictionary. The key must be immutable and hashable, while the value can be any Python object and can vary in type. Key-value pairs are useful for creating flexible, unordered collections of data where each element has a unique identifier. They are often used in scenarios where fast lookups and efficient storage are important.">key-value pairs</a>. Once we have created a dictionary and added elements to it, we may need to retrieve specific values or remove items one by one or altogether from the dictionary. This topic will explore various methods that can help us accomplish these tasks efficiently.</p>
+<h5 id="getting-and-removing-items">Getting and removing items</h5>
+<p>We know how to create a dictionary and add elements to it. But what if we need to get some value from the dictionary or also remove an item? The following methods will help you deal with different tasks depending on your needs.</p>
+<p><em>1. Get a value from the dictionary by a key</em>.</p>
+<p>As you remember, we can access the value in a dictionary by a key:</p>
+<pre><code class="java">testable = {}
+testable['September'] = '16°C'
+
+print(testable['September'])  # 16°C
+</code></pre>
+<p>However, if you try to access a non-existent key, you will get a <code class="java">KeyError</code>:</p>
+<pre><code class="java">print(testable['June'])  # throws a KeyError
+</code></pre>
+<p>To avoid the <code class="java">KeyError</code>, we can use the <code class="java">get</code> method that returns <code class="java">None</code> if the specified key is not in the dictionary:</p>
+<pre><code class="java"># 'get' method does not throw an error
+print(testable.get('September'))  # 16°C
+print(testable.get('June'))  # None
+</code></pre>
+<p>With the <code class="java">get</code> method, we can also define the <a class="theory-lookup not-relevant" href="/learn/step/36298" target="_blank" title="In Python, a default value is a preassigned value that a parameter in a function takes on if no argument is passed for that parameter during the function call. | Default values allow functions to be flexible and accept different inputs while maintaining a consistent structure. They can be added to a function when defining it and can be mutable or immutable objects. For instance, if a default value is a list, it can be added to with new values.">default value</a> that will be returned in such a case:</p>
+<pre><code class="java">print(testable.get('June', 'no temperature'))  # no temperature
+</code></pre>
+<p><em>2.</em> <em>Remove the key from the dictionary and return the value using the </em><code class="java">pop</code><em> method.</em></p>
+<p>If the specified key was found in the dictionary, then the method will remove it and return the value:</p>
+<pre><code class="java">testable = {'September': '16°C', 'December': '-10°C'}
+return_value = testable.pop('December')
+
+print(return_value)  # -10°C
+print(testable)  # {'September': '16°C'}</code></pre>
+<p>If the key was not found,  a <code class="java">KeyError</code> will appear:</p>
+<pre><code class="java">testable.pop('July')  # throws a KeyError</code></pre>
+<p>To get rid of it, we can provide a default argument, and it will return this default value:</p>
+<pre><code class="java">return_value = testable.pop('July', 'no temperature')
+print(return_value)  #  no temperature</code></pre>
+<p><em>3.</em> <em>Remove and return the last item (key, value) added to the dictionary</em> <em>using the </em><code class="java">popitem</code><em> method:</em></p>
+<pre><code class="java">testable = {'September': '16°C', 'December': '-10°C'}
+return_value = testable.popitem()
+
+print(return_value)  # ('December', '-10°C')
+print(testable)  # {'September': '16°C'}</code></pre>
+<p>Pay attention, if the dictionary is empty,  a <code class="java">KeyError</code> will appear:</p>
+<pre><code class="java">testable = {}     
+return_value = testable.popitem()
+# KeyError: 'popitem(): dictionary is empty'</code></pre>
+<p> </p>
+<p>Before Python 3.7, the <code class="java">popitem</code> method removes and returns a<em> random item</em> from the dictionary, not <em>the last one added</em>.</p>
+<p> </p>
+<h5 id="cleaning-the-dictionary">Cleaning the dictionary</h5>
+<p>All the methods described above return a value or an item (key, value) upon removing, but sometimes this is not what we want. There are two ways that remove an item from the dictionary (they do not return anything) or the entire dictionary content at once.</p>
+<p><em>1. Delete (remove from a dictionary) a value by its key with the </em><code class="java">del</code><em> keyword:</em></p>
+<pre><code class="java">testable = {'September': '16°C', 'December': '-10°C', 'July': '23°C'}
+
+# this will remove both the key and the value from dictionary object
+del testable['September']  
+print(testable)  # {'December': '-10°C', 'July': '23°C'}
+
+# throws a KeyError because there's no such key in the dictionary
+del testable['May']
+ 
+# throws a KeyError, as we've already deleted the object by the key
+del testable['September']
+
+# deletes the whole dictionary
+del testable</code></pre>
+<p>2. <em>Remove all the items and return an empty dictionary</em> using the <code class="java">clear</code> method:</p>
+<pre><code class="java">testable = {'September': '16°C', 'December': '-10°C', 'July': '23°C'}
+
+testable.clear()  # remove all elements
+print(testable)   # {}</code></pre>
+<h5 id="differences-in-removal-methods">Differences in removal methods</h5>
+<p>You may wonder, is there any difference between <code class="java">dict = {}</code> and <code class="java">dict.clear()</code> ? Let's say we have another variable that refers to the same dictionary:</p>
+<pre><code class="java">testable = {'December': '-10°C', 'July': '23°C'}
+another_testable = testable</code></pre>
+<p>Then, the <code class="java">dict = {}</code> just creates a new empty dictionary and assigns it to our variable. Let's go back to the example above and assign an empty dictionary to <code class="java">testable</code>:</p>
+<pre><code class="java">testable = {}
+print(testable)  # {}
+print(another_testable)  # {'December': '-10°C', 'July': '23°C'}</code></pre>
+<p><code class="java">another_testable</code> still points to the original dictionary with the same elements, so it doesn't change.</p>
+<p>In contrast, the <code class="java">clear</code> method will clear the dictionary as well as all the objects referring to it:</p>
+<pre><code class="java">testable = {'December': '-10°C', 'July': '23°C'}
+another_testable = testable
+
+testable.clear()
+print(testable)  # {}
+print(another_testable)  # {}</code></pre>
+<h5 id="summary">Summary</h5>
+<p>In this topic, we discussed methods for getting values from a dictionary and removing items from it. We learned about the <code class="java">get</code> method, which allows us to retrieve values from a dictionary by a key while avoiding <code class="java">KeyError</code> exceptions. The <code class="java">pop</code> method enables us to remove a key-value pair from the dictionary and retrieve the associated value. Additionally, the <code class="java">popitem</code> method removes and returns the last item added to the dictionary.</p>
+<p>We also explored two ways to clean a dictionary: using the <code class="java">del</code> keyword to remove a specific item by its key and the <code class="java">clear</code> method to remove all items from the dictionary. We also highlighted the difference between assigning an empty dictionary to a variable and using the <code class="java">clear</code> method, emphasizing that the latter clears the dictionary and all objects referring to it.</p>
+<p>By understanding these methods, developers can effectively manipulate dictionaries, retrieve values, and remove items as needed, enhancing their ability to work with this data structure in Python.</p>
+</div>

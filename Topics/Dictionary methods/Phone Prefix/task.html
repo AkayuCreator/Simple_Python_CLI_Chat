@@ -1,0 +1,15 @@
+<div class="step-text">
+<p>You're working with a code used for phone numbers in a telecom company. Take a look at the code below to understand how the phone numbers are being processed.</p><pre><code class="language-python">def format_phone_numbers(phone_numbers: dict[str, str], country_code: str | None) -&gt; dict[str, str]:
+
+    if not country_code:
+        country_code = "+1"
+
+    formatted = {}
+    for name, number in phone_numbers.items():
+        if not number.startswith("+"):
+            formatted[name] = country_code + number
+        else:
+            formatted[name] = number
+
+    return formatted</code></pre><p>Describe the functionality of this code for an AI assistant by focusing on its overall purpose and what it achieves, rather than detailing each line. Emphasize the main function and the rules it follows to accomplish its task.</p><p></p><div class="alert alert-primary">The AI assistant will generate a new code based on your description. The generated code doesn't need to be identical to the code above, but it should achieve the same outcome.</div><br><br><font color="gray">Memory limit: 256 MB</font><br><font color="gray">Time limit: 15 seconds</font><br><br>
+</div>

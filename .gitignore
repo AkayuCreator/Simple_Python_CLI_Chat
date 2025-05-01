@@ -1,0 +1,16 @@
+# course config files
+*.yaml
+
+# gradle
+.gradle/
+build
+
+
+# idea config
+.idea
+
+# old stages
+/Simple Python CLI Chat/*
+!/Simple Python CLI Chat/task/
+/Simple Python CLI Chat/task/*
+!/Simple Python CLI Chat/task/main.py
